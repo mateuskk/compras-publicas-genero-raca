@@ -1,0 +1,7 @@
+# Copie para terraform.tfvars (ignorado pelo Git) e preencha.
+# O token NÃO vai aqui: use a variável de ambiente TF_VAR_aiven_api_token.
+
+aiven_project   = "nome-do-projeto-na-aiven"
+pg_service_name = "pg-ods-compras"
+pg_plan         = "free-1-1gb"
+cloud_name      = "do-nyc"
