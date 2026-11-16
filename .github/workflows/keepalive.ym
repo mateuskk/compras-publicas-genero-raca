@@ -1,0 +1,23 @@
+# Mantém o PostgreSQL gratuito da Aiven acordado (ele desliga por inatividade).
+# Configure os secrets PG_HOST, PG_PORT, PG_USER e PG_PASSWORD em
+# Settings > Secrets and variables > Actions.
+name: keep-alive-postgres
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # a cada 6 horas
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: SELECT 1 no PostgreSQL
+        env:
+          PGHOST: ${{ secrets.PG_HOST }}
+          PGPORT: ${{ secrets.PG_PORT }}
+          PGUSER: ${{ secrets.PG_USER }}
+          PGPASSWORD: ${{ secrets.PG_PASSWORD }}
+          PGDATABASE: defaultdb
+          PGSSLMODE: require
+        run: psql -c "SELECT 1;"
