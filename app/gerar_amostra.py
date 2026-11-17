@@ -22,14 +22,14 @@ portes = ["MEI", "ME", "EPP", "Demais"]
 base_socia = {"até 30%": 0.31, "30% a 50%": 0.28, "50% a 70%": 0.24, "acima de 70%": 0.19}
 
 linhas = []
-for ano in (2023, 2024):
+for ano in (2022, 2023, 2024):
     for mes in range(1, 13):
         for mun, faixa in municipios:
             for orgao in orgaos:
                 for mod in modalidades:
                     for porte in portes:
                         valor = float(rng.gamma(2.0, 400_000))
-                        p = np.clip(base_socia[faixa] + rng.normal(0, 0.05) + (0.02 if ano == 2024 else 0), 0, 1)
+                        p = np.clip(base_socia[faixa] + rng.normal(0, 0.05) + {2022: -0.02, 2023: 0, 2024: 0.02}[ano], 0, 1)
                         linhas.append({
                             "uf": "XX", "municipio": mun, "faixa_racial": faixa,
                             "ano": ano, "mes": mes, "orgao": orgao,
